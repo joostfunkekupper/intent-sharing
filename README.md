@@ -12,13 +12,13 @@ With the latest Android O changes, the use of BroadcastReceivers is no longer a 
 
 Open both the `shared-token-spike-app-1` and `shared-token-spike-app-2` projects in Android Studio and launch both apps in an emulator. Either app should be able to request data from each other.
 
-![Screenshot](https://thumbs.gfycat.com/BetterDarkFinch-mobile.mp4)
+[Screenshot](https://gfycat.com/BetterDarkFinch.gif)
 
 ## Risks
 
 This approach does not give the user much control over what is being shared. I think a better approach would be to launch an Activity in the responding app where the user can accept or reject the request for data. This also removes the need for Services and BroadcastReceivers as the launched Activity can return the data via the `setResult()` and `onActivityResult()` methods, which is a safer approach - [link](https://developer.android.com/reference/android/app/Activity#starting-activities-and-getting-results).
 
-![Screenshot](https://thumbs.gfycat.com/UnequaledAgileElectriceel-mobile.mp4)
+[Screenshot](https://gfycat.com/UnequaledAgileElectriceel.gif)
 
 ## License
 
