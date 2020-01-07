@@ -1,33 +1,24 @@
-# Project Title
+# Intent Sharing
 
-> Write a concise tagline that tells users exactly what this project does.
+This project is a brief example of how to share data between apps using [Intents](https://developer.android.com/guide/components/intents-filters) even when apps are not running in the foreground.
 
-Write a brief description of your project here. What is it? Who is it for? If you need tips on writing a good README, read [this](https://github.com/noffle/art-of-readme).
+## Background
 
-## Background (optional)
+This project exists because I was interested in exploring requesting data from another app without the use of the AccountManager or Content Providers (which are cumbersome), or Shared Preferences (which is now superseded by the FileProvider). The other constraint was the fact that the responsing application should not need an Activity to show to the user. So the preference was to use Services and/or BroadcastReceivers.
 
-Consider including a Background section if your project depends on important but not widely known abstractions or other ecosystems. Define and link to the big concepts and abstractions one needs to understand to use and grok your project. This is also a great place to explain the module's motivation if similar projects already exist.
+With the latest Android O changes, the use of BroadcastReceivers is no longer a viable option when the responding app is not in the foreground. Instead we can use Services that can be launched briefly which can then use a normal broadcast back to the requesting app (which is in the foreground) and keep the responding app in the background. The latest versions of Android require a notification to be shown using the `startForeground()` to inform the user that we've launched the service, but we can quickly dismiss it again once we've received the data.
 
 ## Usage
 
-Demonstrate how the user interacts with this project and what the output/result is. A great way to engage your audience is to use an [animated screen capture](http://recordit.co/) or [terminal recording](https://github.com/chjj/ttystudio) as shown below. If you do add a screenshot, put the image file in the `.github` folder to keep the repository root clean.
+Open both the `shared-token-spike-app-1` and `shared-token-spike-app-2` projects in Android Studio and launch both apps in an emulator. Either app should be able to request data from each other.
 
-If this project is a library, perhaps add a brief code snippet showing how it is used.
+![Screenshot](https://thumbs.gfycat.com/BetterDarkFinch-mobile.mp4)
 
-![Screenshot](https://raw.githubusercontent.com/chjj/ttystudio/master/img/example.gif)
+## Risks
 
-## Getting Started
+This approach does not give the user much control over what is being shared. I think a better approach would be to launch an Activity in the responding app where the user can accept or reject the request for data. This also removes the need for Services and BroadcastReceivers as the launched Activity can return the data via the `setResult()` and `onActivityResult()` methods, which is a safer approach - [link](https://developer.android.com/reference/android/app/Activity#starting-activities-and-getting-results).
 
-The content of this section will vary depending on the type of project. Some guidelines:
-
-* Any prerequisite libraries/frameworks/packages should be listed in a **Prerequisites** section with links to the relevant website or download page.
-* If this project has pre-built binaries supplied, an **Installation** section might be appropriate.
-* For code libraries, include a snippet users can paste into their `build.gradle` or similar.
-* If the project depends on a lot of third-party services, it should have a `docker-compose.yml` that can run everything at once.
-
-## Building from source
-
-If the user wants to build the project from source, list the steps involved.
+![Screenshot](https://thumbs.gfycat.com/UnequaledAgileElectriceel-mobile.mp4)
 
 ## License
 

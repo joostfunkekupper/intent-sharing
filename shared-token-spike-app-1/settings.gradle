@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name='Shared Token Spike App 1'
